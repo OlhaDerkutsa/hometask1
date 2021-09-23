@@ -66,6 +66,11 @@ Vagrant.configure("2") do |config|
    config.vm.provision "shell", inline: <<-SHELL
      yum install -y epel-release
      yum install -y nginx
+
+     rm -fr /usr/share/nginx/html/*
+     cp -rav /vagrant/www-content/* /usr/share/nginx/html
+
+     setenforce 0
      systemctl start nginx
      systemctl enable nginx
    SHELL
